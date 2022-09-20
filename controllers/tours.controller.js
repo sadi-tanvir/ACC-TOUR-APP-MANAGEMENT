@@ -1,14 +1,9 @@
 import Tour from "../models/Tour.js";
+import { addTourServices, getTourByIdService, getToursService, updateTourByIdService } from "../services/tour.services.js";
 
 export const addTours = async (req, res) => {
     try {
-        const { name, price, duration, image } = req.body;
-        const tour = await Tour.create({
-            name,
-            price,
-            duration,
-            image
-        })
+        const tour = await addTourServices(req.body)
 
         res.status(201).json({
             status: "success",
@@ -26,14 +21,8 @@ export const addTours = async (req, res) => {
 
 export const getTours = async (req, res) => {
     try {
-        const { fields, limit, page, sort } = req.query;
-        const filteredBy = fields?.split(',').join(' ');
-        const sortBy = sort?.split(',').join(' ');
-
-        const tours = await Tour.find({}, filteredBy)
-            .sort(sortBy)
-            .limit(Number(limit))
-            .skip(Number(page) * Number(limit));
+        // query
+        const tours = await getToursService(req)
 
         res.status(200).json({
             status: 'success',
@@ -51,12 +40,9 @@ export const getTours = async (req, res) => {
 
 export const getTourById = async (req, res) => {
     try {
-        const { id } = req.params;
-        // update view count
-        await Tour.updateOne({ _id: id }, { $inc: { view: 1 } });
+        // query
+        const tour = await getTourByIdService(req);
 
-        // find tour information
-        const tour = await Tour.findOne({ _id: id });
         if (!tour) return res.status(404).json({ success: false, message: 'Tour not found' });
 
         res.status(200).json({
@@ -75,9 +61,8 @@ export const getTourById = async (req, res) => {
 
 export const updateTourById = async (req, res) => {
     try {
-        const { id } = req.params;
-        // update view count
-        const tour = await Tour.updateOne({ _id: id }, { $set: req.body }, { runValidators: true });
+        // query
+        const tour = await updateTourByIdService(req);
 
         res.status(200).json({
             status: 'success',
