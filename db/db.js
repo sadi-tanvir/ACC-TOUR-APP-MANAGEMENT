@@ -1,10 +1,8 @@
-import { connect } from "mongoose"
-// const url = `mongodb+srv://${process.env.USER}:${process.env.PASS}@cluster0.jnizw.mongodb.net/${process.env.USER}?retryWrites=true&w=majority`;
-// const url = `mongodb+srv://ACC-TOUR-APP-MANAGEMENT:ACC-TOUR-APP-MANAGEMENT@cluster0.jnizw.mongodb.net/ACC-TOUR-APP-MANAGEMENT?retryWrites=true&w=majority`;
+import mongoose, { connect } from "mongoose"
 
-// const url2 = `mongodb+srv://ACC-TOUR-APP-MANAGEMENT:ACC-TOUR-APP-MANAGEMENT@cluster0.jnizw.mongodb.net/?retryWrites=true&w=majority`
-const urlLocal = 'mongodb://localhost:27017/ACC-TOUR-APP-MANAGEMENT';
+const url = `mongodb+srv://${process.env.USER}:${process.env.PASS}@cluster0.8xgxmx2.mongodb.net/${process.env.DB}?retryWrites=true&w=majority`;
 
-connect(urlLocal)
+
+mongoose.connect(url)
     .then(() => console.log('MongoDB connected...'))
     .catch(err => console.log(err));
