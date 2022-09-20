@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { getTours, addTours, getTourById, updateTourById } from "../../controllers/tours.controller.js";
+import { getTours, addTours, getTourById, updateTourById, getTrendingTours } from "../../controllers/tours.controller.js";
 const router = Router();
 
 router.get('/', getTours)
 router.post('/', addTours)
+router.get('/trending', getTrendingTours)
 router.get('/:id', getTourById)
 router.patch('/:id', updateTourById)
 
