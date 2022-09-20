@@ -72,3 +72,23 @@ export const getTourById = async (req, res) => {
         })
     }
 }
+
+export const updateTourById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        // update view count
+        const tour = await Tour.updateOne({ _id: id }, { $set: req.body }, {runValidators: true});
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Tour updated successfully',
+            tour
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "failed",
+            message: 'Failed to updated tour',
+            error: error.message
+        })
+    }
+}
