@@ -110,3 +110,21 @@ export const getTrendingTours = async (req, res) => {
         })
     }
 }
+
+export const getCheapestTours = async (req, res) => {
+    try {
+        const tours = await Tour.find({}).sort({ price: 1 }).limit(3);
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Tour fetched successfully',
+            tours
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "failed",
+            message: 'Failed to updated tour',
+            error: error.message
+        })
+    }
+}
