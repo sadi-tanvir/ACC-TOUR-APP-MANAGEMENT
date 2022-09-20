@@ -1,7 +1,6 @@
 import { Schema, model } from "mongoose"
 
 
-
 const tourSchema = new Schema({
     name: {
         type: String,
